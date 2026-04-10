@@ -15,7 +15,7 @@
             --green-mid:#2D6A4F;
             --green-light:#40916C;
             --green-pale:#D8F3DC;
-            --green-glow:rgba(27,67,50,0.2);
+            --green-glow:rgba(27,67,50,0.25);
             --copper:#B8860B;
             --copper-light:#D4A74A;
             --copper-dark:#8B6914;
@@ -46,24 +46,6 @@
 
         ::selection{background:var(--green);color:var(--white)}
 
-        /* === ISLAMIC GEOMETRIC PATTERN (CSS-ONLY BG) === */
-        .pattern-bg{
-            position:relative;
-        }
-
-        .pattern-bg::before{
-            content:'';
-            position:absolute;top:0;left:0;
-            width:100%;height:100%;
-            background-image:
-                radial-gradient(circle at 25% 25%, var(--border) 1px, transparent 1px),
-                radial-gradient(circle at 75% 75%, var(--border) 1px, transparent 1px);
-            background-size:60px 60px;
-            pointer-events:none;
-            opacity:0.5;
-            z-index:0;
-        }
-
         /* === TOP BAR — TIMER === */
         .top-bar{
             position:fixed;top:0;left:0;right:0;
@@ -87,8 +69,8 @@
             background:rgba(255,255,255,0.08);
             border:1px solid rgba(184,134,11,0.3);
             padding:3px 10px;border-radius:6px;
-            font-family:var(--font-display);
-            font-size:18px;color:var(--white);
+            font-family:'Courier New',monospace;
+            font-size:18px;color:var(--white);font-weight:700;
             min-width:38px;text-align:center;
         }
 
@@ -103,71 +85,73 @@
 
         .main{padding-top:50px;position:relative;z-index:1}
 
-        /* === HERO === */
+        /* === HERO — FULL BLEED BG === */
         .hero{
             min-height:100vh;
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            overflow:hidden;
-            background:var(--sand);
+            display:flex;align-items:center;
             position:relative;
+            overflow:hidden;
+            background:#0a0a0a;
         }
 
-        .hero__visual{
-            position:relative;overflow:hidden;
-        }
-
-        .hero__visual img{
-            width:100%;height:100%;
-            object-fit:cover;object-position:center 20%;
-            display:block;
-        }
-
-        .hero__visual-overlay{
+        .hero__bg{
             position:absolute;top:0;left:0;
             width:100%;height:100%;
-            background:linear-gradient(to left,var(--sand) 0%,rgba(245,240,232,.3) 40%,transparent 100%);
+            background:url('adel-hero.jpg') center 20%/cover no-repeat;
+        }
+
+        .hero__overlay{
+            position:absolute;top:0;left:0;
+            width:100%;height:100%;
+            background:
+                linear-gradient(to right,rgba(10,10,10,.92) 0%,rgba(10,10,10,.75) 45%,rgba(10,10,10,.3) 75%,transparent 100%);
+        }
+
+        /* For RTL: gradient goes from RIGHT */
+        .hero__overlay{
+            background:
+                linear-gradient(to left,rgba(10,10,10,.92) 0%,rgba(10,10,10,.75) 45%,rgba(10,10,10,.3) 75%,transparent 100%);
         }
 
         .hero__content{
-            display:flex;flex-direction:column;
-            justify-content:center;
-            padding:60px 60px 60px 40px;
             position:relative;z-index:2;
+            max-width:660px;
+            padding:80px 60px;
         }
 
         .hero__bismillah{
             font-family:var(--font-naskh);
-            font-size:22px;color:var(--copper);
+            font-size:22px;color:var(--copper-light);
             margin-bottom:24px;
+            opacity:.9;
         }
 
         .hero__name{
             font-family:var(--font-display);
-            font-size:clamp(42px,5.5vw,72px);
+            font-size:clamp(44px,6vw,78px);
             font-weight:900;
-            color:var(--green);
+            color:var(--white);
             line-height:1.15;
             margin-bottom:8px;
         }
 
         .hero__sub{
             font-family:var(--font-display);
-            font-size:clamp(18px,2.5vw,26px);
+            font-size:clamp(17px,2.2vw,24px);
             font-weight:500;
-            color:var(--copper-dark);
+            color:var(--copper-light);
             margin-bottom:36px;
         }
 
         .hero__intro{
             font-size:16px;
-            color:var(--ink-soft);
+            color:rgba(255,255,255,.75);
             line-height:2;
             max-width:520px;
             margin-bottom:40px;
         }
 
-        .hero__intro strong{color:var(--green)}
+        .hero__intro strong{color:var(--copper-light)}
 
         .hero__metrics{
             display:flex;gap:36px;
@@ -177,7 +161,7 @@
         .hero__metric{
             text-align:center;
             padding:0 16px;
-            border-left:1px solid var(--border);
+            border-left:1px solid rgba(255,255,255,.15);
         }
 
         .hero__metric:first-child{border-left:none;padding-right:0}
@@ -185,12 +169,12 @@
         .hero__metric-val{
             font-family:var(--font-display);
             font-size:34px;font-weight:800;
-            color:var(--green);line-height:1;
+            color:var(--white);line-height:1;
         }
 
         .hero__metric-lbl{
             font-size:11px;font-weight:500;
-            color:var(--ink-muted);margin-top:6px;
+            color:rgba(255,255,255,.5);margin-top:6px;
         }
 
         .hero__buttons{display:flex;gap:14px;flex-wrap:wrap}
@@ -210,6 +194,7 @@
         .btn--green{
             background:var(--green);
             color:var(--white);
+            border:1px solid var(--green-light);
         }
 
         .btn--green:hover{
@@ -219,13 +204,14 @@
         }
 
         .btn--outline{
-            background:transparent;
-            color:var(--green);
-            border:2px solid var(--green);
+            background:rgba(255,255,255,.06);
+            color:var(--white);
+            border:2px solid rgba(255,255,255,.25);
         }
 
         .btn--outline:hover{
-            background:var(--green);color:var(--white);
+            background:rgba(255,255,255,.12);
+            border-color:rgba(255,255,255,.5);
             transform:translateY(-2px);
         }
 
@@ -236,6 +222,27 @@
 
         .btn--copper:hover{
             background:linear-gradient(135deg,var(--copper-light),var(--copper));
+            transform:translateY(-2px);
+        }
+
+        .btn--green-solid{
+            background:var(--green);color:var(--white);
+        }
+
+        .btn--green-solid:hover{
+            background:var(--green-mid);
+            box-shadow:0 8px 30px var(--green-glow);
+            transform:translateY(-2px);
+        }
+
+        .btn--outline-green{
+            background:transparent;
+            color:var(--green);
+            border:2px solid var(--green);
+        }
+
+        .btn--outline-green:hover{
+            background:var(--green);color:var(--white);
             transform:translateY(-2px);
         }
 
@@ -272,12 +279,6 @@
             font-size:15px;color:var(--ink-muted);
             max-width:640px;margin:16px auto 0;
             line-height:2;
-        }
-
-        .divider{
-            width:80px;height:2px;
-            background:linear-gradient(90deg,transparent,var(--copper),transparent);
-            margin:0 auto;
         }
 
         .divider--full{
@@ -539,7 +540,7 @@
             font-size:12px;color:var(--ink-faint);margin-top:2px;
         }
 
-        /* === GALLERY — ROUNDED IMAGES === */
+        /* === GALLERY === */
         .gallery-scroll{
             display:flex;gap:16px;
             padding:0 24px 20px;
@@ -705,10 +706,7 @@
 
         /* === RESPONSIVE === */
         @media(max-width:1024px){
-            .hero{grid-template-columns:1fr;min-height:auto}
-            .hero__visual{height:50vh}
-            .hero__visual-overlay{background:linear-gradient(to top,var(--sand),transparent 60%)}
-            .hero__content{padding:40px 24px}
+            .hero__content{padding:60px 32px}
             .wisdom-grid{grid-template-columns:1fr}
             .testi-grid{grid-template-columns:1fr}
             .compare{grid-template-columns:1fr}
@@ -721,6 +719,12 @@
             .top-bar__digit{font-size:15px;padding:2px 7px}
             .main{padding-top:44px}
             .section{padding:60px 0}
+            .hero{min-height:100vh}
+            .hero__overlay{
+                background:
+                    linear-gradient(to top,rgba(10,10,10,.95) 0%,rgba(10,10,10,.7) 50%,rgba(10,10,10,.3) 100%) !important;
+            }
+            .hero__content{padding:40px 20px;max-width:100%}
             .hero__buttons{flex-direction:column}
             .btn{width:100%;justify-content:center}
             .hero__metrics{gap:20px}
@@ -755,20 +759,18 @@
 
 <div class="main">
 
-<!-- ===== HERO ===== -->
-<section class="hero pattern-bg">
-    <div class="hero__visual">
-        <img src="adel-hero.jpg" alt="عادل الفارسي" loading="eager">
-        <div class="hero__visual-overlay"></div>
-    </div>
+<!-- ===== HERO — FULL BLEED ===== -->
+<section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
     <div class="hero__content">
         <div class="hero__bismillah">بسم الله الرحمن الرحيم</div>
         <h1 class="hero__name">عادل الفارسي</h1>
         <p class="hero__sub">التداول بعلم، والنجاح بتوفيق الله</p>
         <p class="hero__intro">
-            أهلاً بك يا أخي. أنا عادل، متداول محترف مقيم في دبي. 
-            أؤمن أن <strong>العلم أساس كل نجاح</strong>، وأن الطريق الصحيح 
-            للتداول يبدأ بالصبر والانضباط والفهم العميق للسوق. 
+            أهلاً بك يا أخي. أنا عادل، متداول محترف مقيم في دبي.
+            أؤمن أن <strong>العلم أساس كل نجاح</strong>، وأن الطريق الصحيح
+            للتداول يبدأ بالصبر والانضباط والفهم العميق للسوق.
             انضم إلينا وابدأ رحلتك اليوم.
         </p>
 
@@ -808,7 +810,7 @@
             <div class="sec-overline">قصتي</div>
             <h2 class="sec-title">العلم نور، <em>والتداول فن</em></h2>
             <p class="sec-desc">
-                بدأت رحلتي من الصفر، بلا معلّم ولا دليل. تعلّمت من أخطائي وبنيت منهجي 
+                بدأت رحلتي من الصفر، بلا معلّم ولا دليل. تعلّمت من أخطائي وبنيت منهجي
                 بالصبر والممارسة. اليوم أشاركك ما تعلّمته لتختصر الطريق بإذن الله.
             </p>
         </div>
@@ -823,9 +825,9 @@
                     <div class="wisdom-card__num">٠١ — الصبر</div>
                     <h3 class="wisdom-card__title">من الخسارة وُلد الإصرار</h3>
                     <p class="wisdom-card__text">
-                        خسرت في البداية كما يخسر كل مبتدئ. لكنّي لم أستسلم. 
-                        جلست أدرس <strong>الرسوم البيانية</strong> ساعات طويلة، 
-                        وعرفت أن التداول ليس حظاً — بل علمٌ يُتعلَّم. 
+                        خسرت في البداية كما يخسر كل مبتدئ. لكنّي لم أستسلم.
+                        جلست أدرس <strong>الرسوم البيانية</strong> ساعات طويلة،
+                        وعرفت أن التداول ليس حظاً — بل علمٌ يُتعلَّم.
                         الصبر كان مفتاحي الأول، وسيكون مفتاحك أيضاً بإذن الله.
                     </p>
                 </div>
@@ -840,9 +842,9 @@
                     <div class="wisdom-card__num">٠٢ — الانضباط</div>
                     <h3 class="wisdom-card__title">النجاح عادة يومية</h3>
                     <p class="wisdom-card__text">
-                        أنا لا أبحث عن صفقة الحلم. أبحث عن <strong>الاتساق</strong>. 
-                        خطة واضحة، وقت محدد، وإدارة رأس مال صارمة. 
-                        هذه الأصول التي حوّلتني من متداول عشوائي إلى محترف. 
+                        أنا لا أبحث عن صفقة الحلم. أبحث عن <strong>الاتساق</strong>.
+                        خطة واضحة، وقت محدد، وإدارة رأس مال صارمة.
+                        هذه الأصول التي حوّلتني من متداول عشوائي إلى محترف.
                         وهذا ما أعلّمه لكل أخ ينضم إلينا.
                     </p>
                 </div>
@@ -868,7 +870,7 @@
             <div class="sec-overline">المنهج</div>
             <h2 class="sec-title">خمس خطوات <em>لتداول واعٍ</em></h2>
             <p class="sec-desc">
-                أخي الكريم، هذا المنهج الذي أتبعه يومياً وأعلّمه لطلابي. 
+                أخي الكريم، هذا المنهج الذي أتبعه يومياً وأعلّمه لطلابي.
                 ليس فيه سحرٌ ولا وعود، بل علمٌ وعمل وتوكّل.
             </p>
         </div>
@@ -882,8 +884,8 @@
                 <div class="step__content">
                     <h3 class="step__title">📊 فهم الاتجاه العام</h3>
                     <p class="step__text">
-                        قبل أي صفقة، نحلّل <strong>الإطار الزمني الكبير</strong>. 
-                        هل السوق صاعد أم هابط أم متذبذب؟ 
+                        قبل أي صفقة، نحلّل <strong>الإطار الزمني الكبير</strong>.
+                        هل السوق صاعد أم هابط أم متذبذب؟
                         هذه الخطوة وحدها تحميك من ٧٠٪ من الأخطاء.
                     </p>
                 </div>
@@ -897,8 +899,8 @@
                 <div class="step__content">
                     <h3 class="step__title">🎯 تحديد مناطق الدخول</h3>
                     <p class="step__text">
-                        نبحث عن <strong>مناطق الدعم والمقاومة</strong> القوية. 
-                        لا ندخل عشوائياً — بل ننتظر أن يأتي السعر إلينا. 
+                        نبحث عن <strong>مناطق الدعم والمقاومة</strong> القوية.
+                        لا ندخل عشوائياً — بل ننتظر أن يأتي السعر إلينا.
                         الصبر في الانتظار أهم من الصبر في الصفقة.
                     </p>
                 </div>
@@ -912,8 +914,8 @@
                 <div class="step__content">
                     <h3 class="step__title">⚖️ إدارة رأس المال</h3>
                     <p class="step__text">
-                        لا نخاطر بأكثر من <strong>١-٢٪</strong> من رأس المال في الصفقة الواحدة. 
-                        هذه القاعدة الذهبية تحمي حسابك وتبقيك في السوق طويلاً. 
+                        لا نخاطر بأكثر من <strong>١-٢٪</strong> من رأس المال في الصفقة الواحدة.
+                        هذه القاعدة الذهبية تحمي حسابك وتبقيك في السوق طويلاً.
                         من لا يحترم رأس ماله لن يربح أبداً.
                     </p>
                 </div>
@@ -927,8 +929,8 @@
                 <div class="step__content">
                     <h3 class="step__title">🧠 السيطرة على النفس</h3>
                     <p class="step__text">
-                        الطمع والخوف هما أكبر عدوّيك. 
-                        نتعلّم كيف نتحكّم في <strong>المشاعر</strong> أثناء التداول، 
+                        الطمع والخوف هما أكبر عدوّيك.
+                        نتعلّم كيف نتحكّم في <strong>المشاعر</strong> أثناء التداول،
                         ونلتزم بالخطة مهما كانت الظروف. المنضبط يربح، والمتهوّر يخسر.
                     </p>
                 </div>
@@ -942,8 +944,8 @@
                 <div class="step__content">
                     <h3 class="step__title">📝 المراجعة والتطوير</h3>
                     <p class="step__text">
-                        كل أسبوع نراجع صفقاتنا: ما الذي نجح؟ وما الذي يحتاج تحسيناً؟ 
-                        <strong>دفتر التداول</strong> هو أقوى أداة للتعلّم. 
+                        كل أسبوع نراجع صفقاتنا: ما الذي نجح؟ وما الذي يحتاج تحسيناً؟
+                        <strong>دفتر التداول</strong> هو أقوى أداة للتعلّم.
                         المتداول الذي لا يراجع لا يتطوّر.
                     </p>
                 </div>
@@ -1036,7 +1038,7 @@
             </div>
         </div>
         <div class="gallery-card">
-            <img src="adel-car.jpg" alt="عادل — السيارة" loading="lazy">
+            <img src="adel-car.JPG" alt="عادل — السيارة" loading="lazy">
             <div class="gallery-card__caption">
                 <div class="gallery-card__caption-title">ثمرة الاجتهاد</div>
                 <div class="gallery-card__caption-sub">الحمد لله</div>
@@ -1069,7 +1071,7 @@
             <div class="testi reveal">
                 <div class="testi__stars">★ ★ ★ ★ ★</div>
                 <p class="testi__text">
-                    «كنت أخسر كل شهر ولا أعرف السبب. بعد انضمامي لمجتمع عادل، 
+                    «كنت أخسر كل شهر ولا أعرف السبب. بعد انضمامي لمجتمع عادل،
                     فهمت أن المشكلة كانت في إدارة رأس المال. الحمد لله، أول شهر حققت ربحاً.»
                 </p>
                 <div class="testi__author">أحمد م.</div>
@@ -1078,7 +1080,7 @@
             <div class="testi reveal">
                 <div class="testi__stars">★ ★ ★ ★ ★</div>
                 <p class="testi__text">
-                    «الأسلوب التعليمي بسيط ومحترم. ما حسّيت إني مجرد رقم — 
+                    «الأسلوب التعليمي بسيط ومحترم. ما حسّيت إني مجرد رقم —
                     عادل يتابع معك ويسألك عن نتائجك. جزاه الله خيراً.»
                 </p>
                 <div class="testi__author">فاطمة ع.</div>
@@ -1087,7 +1089,7 @@
             <div class="testi reveal">
                 <div class="testi__stars">★ ★ ★ ★ ★</div>
                 <p class="testi__text">
-                    «أفضل شيء تعلّمته: الصبر. عادل علّمني أن لا أدخل صفقة 
+                    «أفضل شيء تعلّمته: الصبر. عادل علّمني أن لا أدخل صفقة
                     إلا وأنا مرتاح ومقتنع. النتائج تحسّنت ٨٠٪ والحمد لله.»
                 </p>
                 <div class="testi__author">يوسف ه.</div>
@@ -1108,11 +1110,11 @@
             أخي الكريم، <em>الخطوة الأولى</em><br>تبدأ الآن
         </h2>
         <p class="final__sub reveal">
-            انضم إلى مجتمعنا، تعلّم المنهج الصحيح، والتزم بالخطة. 
+            انضم إلى مجتمعنا، تعلّم المنهج الصحيح، والتزم بالخطة.
             النتائج تأتي بإذن الله لمن صبر واجتهد. أنا معك في كل خطوة.
         </p>
         <div class="final__btns reveal">
-            <a href="https://tg.trading-top.com/9gppgpFjHN" target="_blank" class="btn btn--green">
+            <a href="https://tg.trading-top.com/9gppgpFjHN" target="_blank" class="btn btn--green-solid">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.15.15 0 00-.07-.2c-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.41-.27-2.1-.5-.85-.28-1.52-.43-1.46-.91.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.26-3.54 3.93-1.62 4.75-1.9 5.28-1.91.12 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .37z"/></svg>
                 انضم إلى تيليجرام الآن
             </a>
@@ -1122,7 +1124,7 @@
             </a>
         </div>
         <div class="final__timer-note reveal">
-            متبقّي <strong id="footer-timer">٠٦:٠٠:٠٠</strong> قبل إغلاق العرض
+            متبقّي <strong id="footer-timer">06:00:00</strong> قبل إغلاق العرض
         </div>
     </div>
 </section>
@@ -1132,7 +1134,7 @@
     <div class="container">
         <p class="footer__copy">© ٢٠٢٥ عادل الفارسي. جميع الحقوق محفوظة.</p>
         <p class="footer__risk">
-            تداول الأسواق المالية ينطوي على مخاطر عالية وقد لا يناسب جميع المستثمرين. 
+            تداول الأسواق المالية ينطوي على مخاطر عالية وقد لا يناسب جميع المستثمرين.
             الأداء السابق لا يضمن النتائج المستقبلية. المحتوى لأغراض تعليمية فقط ولا يُعتبر نصيحة مالية.
         </p>
     </div>
@@ -1141,49 +1143,115 @@
 </div><!-- .main -->
 
 <script>
-/* TIMER — 6h, localStorage, infinite loop */
+/* ===== TIMER — 6 hours, localStorage, infinite loop ===== */
 (function(){
-    var DUR=6*36e5,KEY='adelTimerEnd';
-    function getEnd(){
-        var e=localStorage.getItem(KEY);
-        if(!e||+e<=Date.now()){e=Date.now()+DUR;localStorage.setItem(KEY,e)}
-        return+e;
+    var DURATION = 6 * 60 * 60 * 1000; // 6 hours in ms
+    var STORAGE_KEY = 'adelTimerEnd';
+
+    function getEndTime(){
+        var stored = localStorage.getItem(STORAGE_KEY);
+        var end = stored ? parseInt(stored, 10) : 0;
+        if(!end || isNaN(end) || end <= Date.now()){
+            end = Date.now() + DURATION;
+            localStorage.setItem(STORAGE_KEY, end.toString());
+        }
+        return end;
     }
-    function pad(n){return n<10?'0'+n:n}
-    /* Arabic-Eastern digits */
-    function toAr(s){return s.replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[+d]})}
-    function tick(){
-        var end=getEnd(),d=end-Date.now();
-        if(d<=0){end=Date.now()+DUR;localStorage.setItem(KEY,end);d=DUR}
-        var h=Math.floor(d/36e5),m=Math.floor(d%36e5/6e4),s=Math.floor(d%6e4/1e3);
-        document.getElementById('t-h').textContent=toAr(pad(h));
-        document.getElementById('t-m').textContent=toAr(pad(m));
-        document.getElementById('t-s').textContent=toAr(pad(s));
-        var ft=document.getElementById('footer-timer');
-        if(ft)ft.textContent=toAr(pad(h)+':'+pad(m)+':'+pad(s));
+
+    function pad(n){
+        return (n < 10 ? '0' : '') + n;
     }
-    tick();setInterval(tick,1e3);
+
+    function updateTimer(){
+        var end = getEndTime();
+        var diff = end - Date.now();
+
+        if(diff <= 0){
+            // Reset timer
+            var newEnd = Date.now() + DURATION;
+            localStorage.setItem(STORAGE_KEY, newEnd.toString());
+            diff = DURATION;
+        }
+
+        var hours   = Math.floor(diff / 3600000);
+        var minutes = Math.floor((diff % 3600000) / 60000);
+        var seconds = Math.floor((diff % 60000) / 1000);
+
+        var hh = pad(hours);
+        var mm = pad(minutes);
+        var ss = pad(seconds);
+
+        // Top bar digits
+        var elH = document.getElementById('t-h');
+        var elM = document.getElementById('t-m');
+        var elS = document.getElementById('t-s');
+
+        if(elH) elH.textContent = hh;
+        if(elM) elM.textContent = mm;
+        if(elS) elS.textContent = ss;
+
+        // Footer timer
+        var ft = document.getElementById('footer-timer');
+        if(ft) ft.textContent = hh + ':' + mm + ':' + ss;
+    }
+
+    // Run immediately, then every second
+    updateTimer();
+    setInterval(updateTimer, 1000);
 })();
 
-/* REVEAL */
+/* ===== REVEAL ON SCROLL ===== */
 (function(){
-    var els=document.querySelectorAll('.reveal');
-    var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis')});
-    },{threshold:.12});
-    els.forEach(function(el){obs.observe(el)});
+    var elements = document.querySelectorAll('.reveal');
+    if(!elements.length) return;
+
+    var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add('vis');
+            }
+        });
+    }, { threshold: 0.12 });
+
+    elements.forEach(function(el){
+        observer.observe(el);
+    });
 })();
 
-/* DRAG SCROLL — gallery */
+/* ===== DRAG SCROLL — Gallery ===== */
 (function(){
-    var el=document.getElementById('galleryScroll');if(!el)return;
-    var down=false,sx,sl;
-    el.addEventListener('mousedown',function(e){down=true;el.style.cursor='grabbing';sx=e.pageX-el.offsetLeft;sl=el.scrollLeft});
-    el.addEventListener('mouseleave',function(){down=false;el.style.cursor='grab'});
-    el.addEventListener('mouseup',function(){down=false;el.style.cursor='grab'});
-    el.addEventListener('mousemove',function(e){if(!down)return;e.preventDefault();el.scrollLeft=sl-(e.pageX-el.offsetLeft-sx)*1.5});
+    var el = document.getElementById('galleryScroll');
+    if(!el) return;
+
+    var isDown = false;
+    var startX;
+    var scrollLeft;
+
+    el.addEventListener('mousedown', function(e){
+        isDown = true;
+        el.style.cursor = 'grabbing';
+        startX = e.pageX - el.offsetLeft;
+        scrollLeft = el.scrollLeft;
+    });
+
+    el.addEventListener('mouseleave', function(){
+        isDown = false;
+        el.style.cursor = 'grab';
+    });
+
+    el.addEventListener('mouseup', function(){
+        isDown = false;
+        el.style.cursor = 'grab';
+    });
+
+    el.addEventListener('mousemove', function(e){
+        if(!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - el.offsetLeft;
+        var walk = (x - startX) * 1.5;
+        el.scrollLeft = scrollLeft - walk;
+    });
 })();
 </script>
 </body>
 </html>
-```__
