@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عادل الفارسي — التداول بعلم وأمانة</title>
+    <meta name="description" content="عادل الفارسي. متداول محترف من دبي. انضم إلى مجتمعنا وتعلّم التداول الصحيح بعلم وصبر وانضباط.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+        :root{
+            --green:#1B4332;
+            --green-mid:#2D6A4F;
+            --green-light:#40916C;
+            --green-pale:#D8F3DC;
+            --green-glow:rgba(27,67,50,0.2);
+            --copper:#B8860B;
+            --copper-light:#D4A74A;
+            --copper-dark:#8B6914;
+            --sand:#F5F0E8;
+            --sand-dark:#E8E0D0;
+            --cream:#FFFDF7;
+            --ink:#1A1A1A;
+            --ink-soft:#3D3D3D;
+            --ink-muted:#6B6B6B;
+            --ink-faint:#9E9E9E;
+            --white:#FFFFFF;
+            --border:rgba(27,67,50,0.12);
+            --font-display:'Noto Kufi Arabic',sans-serif;
+            --font-body:'IBM Plex Sans Arabic',sans-serif;
+            --font-naskh:'Noto Naskh Arabic',serif;
+        }
+
+        html{scroll-behavior:smooth;overflow-x:hidden}
+
+        body{
+            font-family:var(--font-body);
+            background:var(--cream);
+            color:var(--ink);
+            line-height:1.8;
+            overflow-x:hidden;
+            direction:rtl;
+        }
+
+        ::selection{background:var(--green);color:var(--white)}
+
+        /* === ISLAMIC GEOMETRIC PATTERN (CSS-ONLY BG) === */
+        .pattern-bg{
+            position:relative;
+        }
+
+        .pattern-bg::before{
+            content:'';
+            position:absolute;top:0;left:0;
+            width:100%;height:100%;
+            background-image:
+                radial-gradient(circle at 25% 25%, var(--border) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, var(--border) 1px, transparent 1px);
+            background-size:60px 60px;
+            pointer-events:none;
+            opacity:0.5;
+            z-index:0;
+        }
+
+        /* === TOP BAR — TIMER === */
+        .top-bar{
+            position:fixed;top:0;left:0;right:0;
+            height:50px;
+            background:var(--green);
+            display:flex;align-items:center;justify-content:center;gap:16px;
+            z-index:9999;
+            border-bottom:2px solid var(--copper);
+        }
+
+        .top-bar__label{
+            font-family:var(--font-display);
+            font-size:12px;font-weight:600;
+            letter-spacing:1px;
+            color:var(--copper-light);
+        }
+
+        .top-bar__timer{display:flex;align-items:center;gap:5px;direction:ltr}
+
+        .top-bar__digit{
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(184,134,11,0.3);
+            padding:3px 10px;border-radius:6px;
+            font-family:var(--font-display);
+            font-size:18px;color:var(--white);
+            min-width:38px;text-align:center;
+        }
+
+        .top-bar__sep{
+            color:var(--copper-light);font-size:16px;font-weight:700;
+            animation:blink 1s step-end infinite;
+        }
+
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+        .top-bar__icon{font-size:16px}
+
+        .main{padding-top:50px;position:relative;z-index:1}
+
+        /* === HERO === */
+        .hero{
+            min-height:100vh;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            overflow:hidden;
+            background:var(--sand);
+            position:relative;
+        }
+
+        .hero__visual{
+            position:relative;overflow:hidden;
+        }
+
+        .hero__visual img{
+            width:100%;height:100%;
+            object-fit:cover;object-position:center 20%;
+            display:block;
+        }
+
+        .hero__visual-overlay{
+            position:absolute;top:0;left:0;
+            width:100%;height:100%;
+            background:linear-gradient(to left,var(--sand) 0%,rgba(245,240,232,.3) 40%,transparent 100%);
+        }
+
+        .hero__content{
+            display:flex;flex-direction:column;
+            justify-content:center;
+            padding:60px 60px 60px 40px;
+            position:relative;z-index:2;
+        }
+
+        .hero__bismillah{
+            font-family:var(--font-naskh);
+            font-size:22px;color:var(--copper);
+            margin-bottom:24px;
+        }
+
+        .hero__name{
+            font-family:var(--font-display);
+            font-size:clamp(42px,5.5vw,72px);
+            font-weight:900;
+            color:var(--green);
+            line-height:1.15;
+            margin-bottom:8px;
+        }
+
+        .hero__sub{
+            font-family:var(--font-display);
+            font-size:clamp(18px,2.5vw,26px);
+            font-weight:500;
+            color:var(--copper-dark);
+            margin-bottom:36px;
+        }
+
+        .hero__intro{
+            font-size:16px;
+            color:var(--ink-soft);
+            line-height:2;
+            max-width:520px;
+            margin-bottom:40px;
+        }
+
+        .hero__intro strong{color:var(--green)}
+
+        .hero__metrics{
+            display:flex;gap:36px;
+            margin-bottom:48px;flex-wrap:wrap;
+        }
+
+        .hero__metric{
+            text-align:center;
+            padding:0 16px;
+            border-left:1px solid var(--border);
+        }
+
+        .hero__metric:first-child{border-left:none;padding-right:0}
+
+        .hero__metric-val{
+            font-family:var(--font-display);
+            font-size:34px;font-weight:800;
+            color:var(--green);line-height:1;
+        }
+
+        .hero__metric-lbl{
+            font-size:11px;font-weight:500;
+            color:var(--ink-muted);margin-top:6px;
+        }
+
+        .hero__buttons{display:flex;gap:14px;flex-wrap:wrap}
+
+        /* === BUTTONS === */
+        .btn{
+            display:inline-flex;align-items:center;gap:10px;
+            padding:14px 32px;
+            font-family:var(--font-display);
+            font-size:14px;font-weight:600;
+            text-decoration:none;border:none;cursor:pointer;
+            transition:all .3s ease;border-radius:8px;
+        }
+
+        .btn svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
+
+        .btn--green{
+            background:var(--green);
+            color:var(--white);
+        }
+
+        .btn--green:hover{
+            background:var(--green-mid);
+            box-shadow:0 8px 30px var(--green-glow);
+            transform:translateY(-2px);
+        }
+
+        .btn--outline{
+            background:transparent;
+            color:var(--green);
+            border:2px solid var(--green);
+        }
+
+        .btn--outline:hover{
+            background:var(--green);color:var(--white);
+            transform:translateY(-2px);
+        }
+
+        .btn--copper{
+            background:linear-gradient(135deg,var(--copper),var(--copper-dark));
+            color:var(--white);
+        }
+
+        .btn--copper:hover{
+            background:linear-gradient(135deg,var(--copper-light),var(--copper));
+            transform:translateY(-2px);
+        }
+
+        /* === SECTION === */
+        .section{padding:90px 0;position:relative}
+
+        .container{max-width:1140px;margin:0 auto;padding:0 24px}
+
+        .sec-head{margin-bottom:56px;text-align:center}
+
+        .sec-ornament{
+            display:block;margin:0 auto 14px;
+            color:var(--copper);font-size:28px;
+        }
+
+        .sec-overline{
+            font-family:var(--font-display);
+            font-size:12px;font-weight:600;
+            color:var(--copper);margin-bottom:10px;
+            letter-spacing:1px;
+        }
+
+        .sec-title{
+            font-family:var(--font-display);
+            font-size:clamp(28px,4vw,48px);
+            font-weight:800;
+            color:var(--green);
+            line-height:1.3;
+        }
+
+        .sec-title em{font-style:normal;color:var(--copper)}
+
+        .sec-desc{
+            font-size:15px;color:var(--ink-muted);
+            max-width:640px;margin:16px auto 0;
+            line-height:2;
+        }
+
+        .divider{
+            width:80px;height:2px;
+            background:linear-gradient(90deg,transparent,var(--copper),transparent);
+            margin:0 auto;
+        }
+
+        .divider--full{
+            width:100%;height:1px;
+            background:linear-gradient(90deg,transparent,var(--border),transparent);
+        }
+
+        /* === ABOUT — WISDOM CARDS === */
+        .wisdom-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:24px;
+        }
+
+        .wisdom-card{
+            background:var(--white);
+            border:1px solid var(--border);
+            border-radius:16px;
+            overflow:hidden;
+            transition:all .4s ease;
+        }
+
+        .wisdom-card:hover{
+            box-shadow:0 12px 40px rgba(27,67,50,.08);
+            transform:translateY(-4px);
+        }
+
+        .wisdom-card__img{
+            height:280px;overflow:hidden;
+            position:relative;
+        }
+
+        .wisdom-card__img img{
+            width:100%;height:100%;
+            object-fit:cover;display:block;
+            transition:transform .6s ease;
+        }
+
+        .wisdom-card:hover .wisdom-card__img img{transform:scale(1.04)}
+
+        .wisdom-card__img-badge{
+            position:absolute;top:16px;right:16px;
+            background:var(--green);color:var(--white);
+            font-family:var(--font-display);
+            font-size:11px;font-weight:600;
+            padding:6px 16px;border-radius:20px;
+        }
+
+        .wisdom-card__body{padding:32px}
+
+        .wisdom-card__num{
+            font-family:var(--font-display);
+            font-size:12px;font-weight:700;
+            color:var(--copper);margin-bottom:8px;
+        }
+
+        .wisdom-card__title{
+            font-family:var(--font-display);
+            font-size:20px;font-weight:700;
+            color:var(--green);margin-bottom:14px;
+            line-height:1.4;
+        }
+
+        .wisdom-card__text{
+            font-size:14px;color:var(--ink-soft);
+            line-height:2;
+        }
+
+        .wisdom-card__text strong{color:var(--green)}
+
+        /* === QUOTE BANNER === */
+        .quote-banner{
+            background:var(--green);
+            padding:80px 24px;
+            text-align:center;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .quote-banner::before{
+            content:'';position:absolute;top:0;left:0;
+            width:100%;height:100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.03) 1px, transparent 1px),
+                radial-gradient(circle at 80% 50%, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size:40px 40px;
+            pointer-events:none;
+        }
+
+        .quote-banner__icon{
+            font-size:36px;margin-bottom:20px;
+            display:block;
+        }
+
+        .quote-banner__text{
+            font-family:var(--font-naskh);
+            font-size:clamp(22px,3.5vw,34px);
+            color:var(--white);
+            line-height:1.8;
+            max-width:800px;margin:0 auto;
+        }
+
+        .quote-banner__text em{
+            font-style:normal;
+            color:var(--copper-light);
+        }
+
+        .quote-banner__author{
+            font-family:var(--font-display);
+            font-size:14px;font-weight:600;
+            color:var(--copper-light);
+            margin-top:24px;
+        }
+
+        /* === METHOD — STEPS === */
+        .steps{
+            display:flex;flex-direction:column;
+            gap:0;max-width:800px;margin:0 auto;
+        }
+
+        .step{
+            display:grid;
+            grid-template-columns:80px 1fr;
+            gap:0;
+            position:relative;
+        }
+
+        .step__line{
+            display:flex;flex-direction:column;align-items:center;
+            padding-top:6px;
+        }
+
+        .step__dot{
+            width:40px;height:40px;
+            border-radius:50%;
+            background:var(--white);
+            border:3px solid var(--green);
+            display:flex;align-items:center;justify-content:center;
+            font-family:var(--font-display);
+            font-size:14px;font-weight:800;
+            color:var(--green);
+            position:relative;z-index:2;
+            transition:all .3s ease;
+        }
+
+        .step:hover .step__dot{
+            background:var(--green);color:var(--white);
+        }
+
+        .step__connector{
+            flex:1;width:3px;
+            background:linear-gradient(180deg,var(--green),var(--border));
+            margin-top:4px;
+        }
+
+        .step:last-child .step__connector{display:none}
+
+        .step__content{
+            background:var(--white);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:28px 32px;
+            margin-bottom:20px;
+            transition:all .3s ease;
+        }
+
+        .step:hover .step__content{
+            border-color:var(--green-light);
+            box-shadow:0 6px 24px rgba(27,67,50,0.06);
+        }
+
+        .step__title{
+            font-family:var(--font-display);
+            font-size:18px;font-weight:700;
+            color:var(--green);margin-bottom:10px;
+        }
+
+        .step__text{
+            font-size:14px;color:var(--ink-muted);
+            line-height:2;
+        }
+
+        .step__text strong{color:var(--ink-soft)}
+
+        /* === STATS BAR === */
+        .stats-bar{
+            display:grid;grid-template-columns:repeat(4,1fr);
+            background:var(--sand);
+            border-top:1px solid var(--border);
+            border-bottom:1px solid var(--border);
+        }
+
+        .stat-cell{
+            text-align:center;
+            padding:44px 16px;
+            border-left:1px solid var(--border);
+            transition:all .3s ease;
+        }
+
+        .stat-cell:first-child{border-left:none}
+
+        .stat-cell:hover{background:var(--white)}
+
+        .stat-cell__val{
+            font-family:var(--font-display);
+            font-size:clamp(28px,4vw,44px);
+            font-weight:800;
+            color:var(--green);line-height:1;
+        }
+
+        .stat-cell__lbl{
+            font-size:12px;color:var(--ink-muted);
+            margin-top:8px;font-weight:500;
+        }
+
+        /* === TESTIMONIALS === */
+        .testi-grid{
+            display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+        }
+
+        .testi{
+            background:var(--white);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:32px 28px;
+            transition:all .3s ease;
+            position:relative;
+        }
+
+        .testi::before{
+            content:'';position:absolute;
+            top:0;right:0;width:0;height:3px;
+            background:var(--green);border-radius:12px 12px 0 0;
+            transition:width .4s ease;
+        }
+
+        .testi:hover::before{width:100%}
+
+        .testi:hover{
+            box-shadow:0 8px 28px rgba(27,67,50,.06);
+            transform:translateY(-3px);
+        }
+
+        .testi__stars{color:var(--copper);font-size:13px;margin-bottom:14px;letter-spacing:3px}
+
+        .testi__text{
+            font-family:var(--font-naskh);
+            font-size:14px;color:var(--ink-soft);
+            line-height:2.2;margin-bottom:20px;
+        }
+
+        .testi__author{
+            font-family:var(--font-display);
+            font-size:14px;font-weight:600;
+            color:var(--green);
+        }
+
+        .testi__role{
+            font-size:12px;color:var(--ink-faint);margin-top:2px;
+        }
+
+        /* === GALLERY — ROUNDED IMAGES === */
+        .gallery-scroll{
+            display:flex;gap:16px;
+            padding:0 24px 20px;
+            overflow-x:auto;cursor:grab;
+            scroll-snap-type:x mandatory;
+            -webkit-overflow-scrolling:touch;
+            scrollbar-width:none;
+        }
+
+        .gallery-scroll::-webkit-scrollbar{display:none}
+        .gallery-scroll:active{cursor:grabbing}
+
+        .gallery-card{
+            flex:0 0 340px;
+            border-radius:16px;
+            overflow:hidden;
+            position:relative;
+            scroll-snap-align:start;
+            border:1px solid var(--border);
+        }
+
+        .gallery-card img{
+            width:100%;height:440px;
+            object-fit:cover;display:block;
+            transition:transform .6s ease;
+        }
+
+        .gallery-card:hover img{transform:scale(1.04)}
+
+        .gallery-card__caption{
+            position:absolute;bottom:0;left:0;right:0;
+            padding:24px 20px;
+            background:linear-gradient(transparent,rgba(26,26,26,.85));
+        }
+
+        .gallery-card__caption-title{
+            font-family:var(--font-display);
+            font-size:14px;font-weight:600;
+            color:var(--white);
+        }
+
+        .gallery-card__caption-sub{
+            font-size:12px;color:var(--copper-light);margin-top:2px;
+        }
+
+        .scroll-hint{
+            text-align:center;margin-top:16px;
+            font-size:11px;color:var(--ink-faint);
+        }
+
+        /* === COMPARISON TABLE === */
+        .compare{
+            display:grid;grid-template-columns:1fr 1fr;
+            gap:24px;max-width:860px;margin:0 auto;
+        }
+
+        .compare__col{
+            background:var(--white);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:36px 32px;
+        }
+
+        .compare__col--adel{
+            background:linear-gradient(135deg,rgba(27,67,50,.03),rgba(27,67,50,.08));
+            border-color:rgba(27,67,50,.2);
+        }
+
+        .compare__head{
+            font-family:var(--font-display);
+            font-size:18px;font-weight:700;
+            margin-bottom:24px;padding-bottom:14px;
+            border-bottom:2px solid var(--border);
+        }
+
+        .compare__col--alone .compare__head{color:var(--ink-muted)}
+        .compare__col--adel .compare__head{color:var(--green);border-bottom-color:var(--green)}
+
+        .compare__list{list-style:none;display:flex;flex-direction:column;gap:16px}
+
+        .compare__list li{
+            display:flex;align-items:flex-start;gap:10px;
+            font-size:14px;line-height:1.7;
+        }
+
+        .compare__col--alone .compare__list li{color:var(--ink-faint)}
+        .compare__col--adel .compare__list li{color:var(--ink-soft)}
+
+        .compare__icon{flex-shrink:0;margin-top:3px;font-size:13px}
+        .compare__col--alone .compare__icon{color:var(--ink-faint)}
+        .compare__col--adel .compare__icon{color:var(--green)}
+
+        /* === FINAL CTA === */
+        .final{
+            padding:100px 0;
+            text-align:center;
+            background:var(--sand);
+            position:relative;
+            overflow:hidden;
+        }
+
+        .final__pattern{
+            position:absolute;top:0;left:0;
+            width:100%;height:100%;
+            background-image:
+                radial-gradient(circle at 30% 70%, rgba(27,67,50,0.04) 1px, transparent 1px),
+                radial-gradient(circle at 70% 30%, rgba(27,67,50,0.04) 1px, transparent 1px);
+            background-size:50px 50px;
+            pointer-events:none;
+        }
+
+        .final__inner{position:relative;z-index:2}
+
+        .final__icon{font-size:40px;margin-bottom:20px;display:block}
+
+        .final__title{
+            font-family:var(--font-display);
+            font-size:clamp(28px,4.5vw,52px);
+            font-weight:900;
+            color:var(--green);
+            line-height:1.3;margin-bottom:16px;
+        }
+
+        .final__title em{font-style:normal;color:var(--copper)}
+
+        .final__sub{
+            font-size:16px;color:var(--ink-muted);
+            max-width:600px;margin:0 auto 44px;
+            line-height:2;
+        }
+
+        .final__btns{
+            display:flex;justify-content:center;gap:16px;
+            flex-wrap:wrap;margin-bottom:36px;
+        }
+
+        .final__timer-note{
+            font-family:var(--font-display);
+            font-size:13px;color:var(--ink-faint);
+        }
+
+        .final__timer-note strong{color:var(--green)}
+
+        /* === FOOTER === */
+        .footer{
+            padding:36px 0;
+            text-align:center;
+            border-top:1px solid var(--border);
+            background:var(--cream);
+        }
+
+        .footer__copy{font-size:12px;color:var(--ink-faint)}
+
+        .footer__risk{
+            margin-top:12px;font-size:11px;
+            color:var(--ink-faint);max-width:680px;
+            margin-left:auto;margin-right:auto;line-height:1.9;
+        }
+
+        /* === ANIMATIONS === */
+        .reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+        .reveal.vis{opacity:1;transform:translateY(0)}
+
+        /* === RESPONSIVE === */
+        @media(max-width:1024px){
+            .hero{grid-template-columns:1fr;min-height:auto}
+            .hero__visual{height:50vh}
+            .hero__visual-overlay{background:linear-gradient(to top,var(--sand),transparent 60%)}
+            .hero__content{padding:40px 24px}
+            .wisdom-grid{grid-template-columns:1fr}
+            .testi-grid{grid-template-columns:1fr}
+            .compare{grid-template-columns:1fr}
+            .stats-bar{grid-template-columns:repeat(2,1fr)}
+        }
+
+        @media(max-width:768px){
+            .top-bar{height:44px;gap:8px}
+            .top-bar__label{font-size:10px}
+            .top-bar__digit{font-size:15px;padding:2px 7px}
+            .main{padding-top:44px}
+            .section{padding:60px 0}
+            .hero__buttons{flex-direction:column}
+            .btn{width:100%;justify-content:center}
+            .hero__metrics{gap:20px}
+            .step{grid-template-columns:60px 1fr}
+            .gallery-card{flex:0 0 300px}
+            .gallery-card img{height:380px}
+            .final{padding:70px 0}
+        }
+
+        @media(max-width:480px){
+            .stats-bar{grid-template-columns:1fr}
+            .stat-cell{border-left:none;border-bottom:1px solid var(--border)}
+            .stat-cell:last-child{border-bottom:none}
+            .hero__metric-val{font-size:28px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR + TIMER -->
+<div class="top-bar">
+    <span class="top-bar__icon">☪</span>
+    <span class="top-bar__label">العرض ينتهي خلال</span>
+    <div class="top-bar__timer">
+        <span class="top-bar__digit" id="t-h">06</span>
+        <span class="top-bar__sep">:</span>
+        <span class="top-bar__digit" id="t-m">00</span>
+        <span class="top-bar__sep">:</span>
+        <span class="top-bar__digit" id="t-s">00</span>
+    </div>
+</div>
+
+<div class="main">
+
+<!-- ===== HERO ===== -->
+<section class="hero pattern-bg">
+    <div class="hero__visual">
+        <img src="adel-hero.jpg" alt="عادل الفارسي" loading="eager">
+        <div class="hero__visual-overlay"></div>
+    </div>
+    <div class="hero__content">
+        <div class="hero__bismillah">بسم الله الرحمن الرحيم</div>
+        <h1 class="hero__name">عادل الفارسي</h1>
+        <p class="hero__sub">التداول بعلم، والنجاح بتوفيق الله</p>
+        <p class="hero__intro">
+            أهلاً بك يا أخي. أنا عادل، متداول محترف مقيم في دبي. 
+            أؤمن أن <strong>العلم أساس كل نجاح</strong>، وأن الطريق الصحيح 
+            للتداول يبدأ بالصبر والانضباط والفهم العميق للسوق. 
+            انضم إلينا وابدأ رحلتك اليوم.
+        </p>
+
+        <div class="hero__metrics">
+            <div class="hero__metric">
+                <div class="hero__metric-val">+٧</div>
+                <div class="hero__metric-lbl">سنوات خبرة</div>
+            </div>
+            <div class="hero__metric">
+                <div class="hero__metric-val">٨٨٪</div>
+                <div class="hero__metric-lbl">نسبة النجاح</div>
+            </div>
+            <div class="hero__metric">
+                <div class="hero__metric-val">+٤٬٠٠٠</div>
+                <div class="hero__metric-lbl">عضو في المجتمع</div>
+            </div>
+        </div>
+
+        <div class="hero__buttons">
+            <a href="https://tg.trading-top.com/9gppgpFjHN" target="_blank" class="btn btn--green">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.15.15 0 00-.07-.2c-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.41-.27-2.1-.5-.85-.28-1.52-.43-1.46-.91.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.26-3.54 3.93-1.62 4.75-1.9 5.28-1.91.12 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .37z"/></svg>
+                انضم إلى تيليجرام
+            </a>
+            <a href="https://www.youtube.com/@terlexz/videos" target="_blank" class="btn btn--outline">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                يوتيوب
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ABOUT — WISDOM CARDS ===== -->
+<section class="section">
+    <div class="container">
+        <div class="sec-head reveal">
+            <span class="sec-ornament">﷽</span>
+            <div class="sec-overline">قصتي</div>
+            <h2 class="sec-title">العلم نور، <em>والتداول فن</em></h2>
+            <p class="sec-desc">
+                بدأت رحلتي من الصفر، بلا معلّم ولا دليل. تعلّمت من أخطائي وبنيت منهجي 
+                بالصبر والممارسة. اليوم أشاركك ما تعلّمته لتختصر الطريق بإذن الله.
+            </p>
+        </div>
+
+        <div class="wisdom-grid">
+            <div class="wisdom-card reveal">
+                <div class="wisdom-card__img">
+                    <img src="adel-work.jpg" alt="عادل يتأمل" loading="lazy">
+                    <div class="wisdom-card__img-badge">البداية</div>
+                </div>
+                <div class="wisdom-card__body">
+                    <div class="wisdom-card__num">٠١ — الصبر</div>
+                    <h3 class="wisdom-card__title">من الخسارة وُلد الإصرار</h3>
+                    <p class="wisdom-card__text">
+                        خسرت في البداية كما يخسر كل مبتدئ. لكنّي لم أستسلم. 
+                        جلست أدرس <strong>الرسوم البيانية</strong> ساعات طويلة، 
+                        وعرفت أن التداول ليس حظاً — بل علمٌ يُتعلَّم. 
+                        الصبر كان مفتاحي الأول، وسيكون مفتاحك أيضاً بإذن الله.
+                    </p>
+                </div>
+            </div>
+
+            <div class="wisdom-card reveal">
+                <div class="wisdom-card__img">
+                    <img src="adel-life.jpg" alt="عادل في المدينة" loading="lazy">
+                    <div class="wisdom-card__img-badge">الطريق</div>
+                </div>
+                <div class="wisdom-card__body">
+                    <div class="wisdom-card__num">٠٢ — الانضباط</div>
+                    <h3 class="wisdom-card__title">النجاح عادة يومية</h3>
+                    <p class="wisdom-card__text">
+                        أنا لا أبحث عن صفقة الحلم. أبحث عن <strong>الاتساق</strong>. 
+                        خطة واضحة، وقت محدد، وإدارة رأس مال صارمة. 
+                        هذه الأصول التي حوّلتني من متداول عشوائي إلى محترف. 
+                        وهذا ما أعلّمه لكل أخ ينضم إلينا.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== QUOTE BANNER ===== -->
+<section class="quote-banner">
+    <span class="quote-banner__icon reveal">📖</span>
+    <blockquote class="quote-banner__text reveal">
+        «مَن سلَكَ طريقاً يطلُبُ فيه <em>عِلماً</em>، سلَكَ اللهُ به طريقاً من طُرُقِ <em>الجنّة</em>»
+    </blockquote>
+    <p class="quote-banner__author reveal">— حديث شريف (رواه مسلم)</p>
+</section>
+
+<!-- ===== METHOD — STEPS ===== -->
+<section class="section">
+    <div class="container">
+        <div class="sec-head reveal">
+            <span class="sec-ornament">✦</span>
+            <div class="sec-overline">المنهج</div>
+            <h2 class="sec-title">خمس خطوات <em>لتداول واعٍ</em></h2>
+            <p class="sec-desc">
+                أخي الكريم، هذا المنهج الذي أتبعه يومياً وأعلّمه لطلابي. 
+                ليس فيه سحرٌ ولا وعود، بل علمٌ وعمل وتوكّل.
+            </p>
+        </div>
+
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step__line">
+                    <div class="step__dot">١</div>
+                    <div class="step__connector"></div>
+                </div>
+                <div class="step__content">
+                    <h3 class="step__title">📊 فهم الاتجاه العام</h3>
+                    <p class="step__text">
+                        قبل أي صفقة، نحلّل <strong>الإطار الزمني الكبير</strong>. 
+                        هل السوق صاعد أم هابط أم متذبذب؟ 
+                        هذه الخطوة وحدها تحميك من ٧٠٪ من الأخطاء.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step reveal">
+                <div class="step__line">
+                    <div class="step__dot">٢</div>
+                    <div class="step__connector"></div>
+                </div>
+                <div class="step__content">
+                    <h3 class="step__title">🎯 تحديد مناطق الدخول</h3>
+                    <p class="step__text">
+                        نبحث عن <strong>مناطق الدعم والمقاومة</strong> القوية. 
+                        لا ندخل عشوائياً — بل ننتظر أن يأتي السعر إلينا. 
+                        الصبر في الانتظار أهم من الصبر في الصفقة.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step reveal">
+                <div class="step__line">
+                    <div class="step__dot">٣</div>
+                    <div class="step__connector"></div>
+                </div>
+                <div class="step__content">
+                    <h3 class="step__title">⚖️ إدارة رأس المال</h3>
+                    <p class="step__text">
+                        لا نخاطر بأكثر من <strong>١-٢٪</strong> من رأس المال في الصفقة الواحدة. 
+                        هذه القاعدة الذهبية تحمي حسابك وتبقيك في السوق طويلاً. 
+                        من لا يحترم رأس ماله لن يربح أبداً.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step reveal">
+                <div class="step__line">
+                    <div class="step__dot">٤</div>
+                    <div class="step__connector"></div>
+                </div>
+                <div class="step__content">
+                    <h3 class="step__title">🧠 السيطرة على النفس</h3>
+                    <p class="step__text">
+                        الطمع والخوف هما أكبر عدوّيك. 
+                        نتعلّم كيف نتحكّم في <strong>المشاعر</strong> أثناء التداول، 
+                        ونلتزم بالخطة مهما كانت الظروف. المنضبط يربح، والمتهوّر يخسر.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step reveal">
+                <div class="step__line">
+                    <div class="step__dot">٥</div>
+                    <div class="step__connector"></div>
+                </div>
+                <div class="step__content">
+                    <h3 class="step__title">📝 المراجعة والتطوير</h3>
+                    <p class="step__text">
+                        كل أسبوع نراجع صفقاتنا: ما الذي نجح؟ وما الذي يحتاج تحسيناً؟ 
+                        <strong>دفتر التداول</strong> هو أقوى أداة للتعلّم. 
+                        المتداول الذي لا يراجع لا يتطوّر.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider--full"></div>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar">
+    <div class="stat-cell reveal">
+        <div class="stat-cell__val">٨٨٪</div>
+        <div class="stat-cell__lbl">نسبة النجاح</div>
+    </div>
+    <div class="stat-cell reveal">
+        <div class="stat-cell__val">+٤٬٠٠٠</div>
+        <div class="stat-cell__lbl">عضو في المجتمع</div>
+    </div>
+    <div class="stat-cell reveal">
+        <div class="stat-cell__val">+١٬٥٠٠</div>
+        <div class="stat-cell__lbl">إشارة في ٢٠٢٤</div>
+    </div>
+    <div class="stat-cell reveal">
+        <div class="stat-cell__val">+٧</div>
+        <div class="stat-cell__lbl">سنوات خبرة</div>
+    </div>
+</div>
+
+<!-- ===== COMPARISON ===== -->
+<section class="section">
+    <div class="container">
+        <div class="sec-head reveal">
+            <span class="sec-ornament">⚖</span>
+            <div class="sec-overline">المقارنة</div>
+            <h2 class="sec-title">وحدك أم <em>مع فريق عادل؟</em></h2>
+        </div>
+
+        <div class="compare reveal">
+            <div class="compare__col compare__col--alone">
+                <div class="compare__head">التداول وحدك</div>
+                <ul class="compare__list">
+                    <li><span class="compare__icon">✕</span><span>سنوات من التجربة والخطأ بلا مرشد</span></li>
+                    <li><span class="compare__icon">✕</span><span>خسائر متكررة بسبب العشوائية</span></li>
+                    <li><span class="compare__icon">✕</span><span>تنقّل بين استراتيجيات بلا استقرار</span></li>
+                    <li><span class="compare__icon">✕</span><span>لا أحد يراجع أخطاءك أو يوجّهك</span></li>
+                    <li><span class="compare__icon">✕</span><span>قرارات عاطفية بعد كل خسارة</span></li>
+                </ul>
+            </div>
+            <div class="compare__col compare__col--adel">
+                <div class="compare__head">مع مجتمع عادل</div>
+                <ul class="compare__list">
+                    <li><span class="compare__icon">◆</span><span>منهج واضح ومجرّب من اليوم الأول</span></li>
+                    <li><span class="compare__icon">◆</span><span>إشارات يومية بوقف خسارة وهدف محدد</span></li>
+                    <li><span class="compare__icon">◆</span><span>استراتيجية واحدة تتقنها — لا تشتّت</span></li>
+                    <li><span class="compare__icon">◆</span><span>مجتمع أخوي يدعمك ويحاسبك</span></li>
+                    <li><span class="compare__icon">◆</span><span>تعليم إدارة المشاعر والانضباط</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider--full"></div>
+
+<!-- ===== GALLERY ===== -->
+<section class="section">
+    <div class="container">
+        <div class="sec-head reveal">
+            <span class="sec-ornament">📷</span>
+            <div class="sec-overline">لمحات</div>
+            <h2 class="sec-title">من حياة <em>عادل</em></h2>
+        </div>
+    </div>
+
+    <div class="gallery-scroll" id="galleryScroll">
+        <div class="gallery-card">
+            <img src="adel-hero.jpg" alt="عادل — الغروب" loading="lazy">
+            <div class="gallery-card__caption">
+                <div class="gallery-card__caption-title">لحظة تأمّل</div>
+                <div class="gallery-card__caption-sub">عند الغروب</div>
+            </div>
+        </div>
+        <div class="gallery-card">
+            <img src="adel-work.jpg" alt="عادل — العمل" loading="lazy">
+            <div class="gallery-card__caption">
+                <div class="gallery-card__caption-title">تحليل الأسواق</div>
+                <div class="gallery-card__caption-sub">كل يوم بصبر وعلم</div>
+            </div>
+        </div>
+        <div class="gallery-card">
+            <img src="adel-car.jpg" alt="عادل — السيارة" loading="lazy">
+            <div class="gallery-card__caption">
+                <div class="gallery-card__caption-title">ثمرة الاجتهاد</div>
+                <div class="gallery-card__caption-sub">الحمد لله</div>
+            </div>
+        </div>
+        <div class="gallery-card">
+            <img src="adel-life.jpg" alt="عادل — الحياة" loading="lazy">
+            <div class="gallery-card__caption">
+                <div class="gallery-card__caption-title">بين الناس</div>
+                <div class="gallery-card__caption-sub">التواصل والتعلّم</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-hint reveal">← اسحب لاستكشاف المزيد →</div>
+</section>
+
+<div class="divider--full"></div>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section">
+    <div class="container">
+        <div class="sec-head reveal">
+            <span class="sec-ornament">💬</span>
+            <div class="sec-overline">شهادات الإخوة</div>
+            <h2 class="sec-title">ماذا يقول <em>أعضاء المجتمع؟</em></h2>
+        </div>
+
+        <div class="testi-grid">
+            <div class="testi reveal">
+                <div class="testi__stars">★ ★ ★ ★ ★</div>
+                <p class="testi__text">
+                    «كنت أخسر كل شهر ولا أعرف السبب. بعد انضمامي لمجتمع عادل، 
+                    فهمت أن المشكلة كانت في إدارة رأس المال. الحمد لله، أول شهر حققت ربحاً.»
+                </p>
+                <div class="testi__author">أحمد م.</div>
+                <div class="testi__role">متداول — ٥ أشهر في المجتمع</div>
+            </div>
+            <div class="testi reveal">
+                <div class="testi__stars">★ ★ ★ ★ ★</div>
+                <p class="testi__text">
+                    «الأسلوب التعليمي بسيط ومحترم. ما حسّيت إني مجرد رقم — 
+                    عادل يتابع معك ويسألك عن نتائجك. جزاه الله خيراً.»
+                </p>
+                <div class="testi__author">فاطمة ع.</div>
+                <div class="testi__role">متداولة — ٨ أشهر في المجتمع</div>
+            </div>
+            <div class="testi reveal">
+                <div class="testi__stars">★ ★ ★ ★ ★</div>
+                <p class="testi__text">
+                    «أفضل شيء تعلّمته: الصبر. عادل علّمني أن لا أدخل صفقة 
+                    إلا وأنا مرتاح ومقتنع. النتائج تحسّنت ٨٠٪ والحمد لله.»
+                </p>
+                <div class="testi__author">يوسف ه.</div>
+                <div class="testi__role">متداول — سنة في المجتمع</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider--full"></div>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final">
+    <div class="final__pattern"></div>
+    <div class="final__inner container">
+        <span class="final__icon reveal">🤝</span>
+        <h2 class="final__title reveal">
+            أخي الكريم، <em>الخطوة الأولى</em><br>تبدأ الآن
+        </h2>
+        <p class="final__sub reveal">
+            انضم إلى مجتمعنا، تعلّم المنهج الصحيح، والتزم بالخطة. 
+            النتائج تأتي بإذن الله لمن صبر واجتهد. أنا معك في كل خطوة.
+        </p>
+        <div class="final__btns reveal">
+            <a href="https://tg.trading-top.com/9gppgpFjHN" target="_blank" class="btn btn--green">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.15.15 0 00-.07-.2c-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.41-.27-2.1-.5-.85-.28-1.52-.43-1.46-.91.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.26-3.54 3.93-1.62 4.75-1.9 5.28-1.91.12 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .37z"/></svg>
+                انضم إلى تيليجرام الآن
+            </a>
+            <a href="https://www.youtube.com/@terlexz/videos" target="_blank" class="btn btn--copper">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                شاهد على يوتيوب
+            </a>
+        </div>
+        <div class="final__timer-note reveal">
+            متبقّي <strong id="footer-timer">٠٦:٠٠:٠٠</strong> قبل إغلاق العرض
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p class="footer__copy">© ٢٠٢٥ عادل الفارسي. جميع الحقوق محفوظة.</p>
+        <p class="footer__risk">
+            تداول الأسواق المالية ينطوي على مخاطر عالية وقد لا يناسب جميع المستثمرين. 
+            الأداء السابق لا يضمن النتائج المستقبلية. المحتوى لأغراض تعليمية فقط ولا يُعتبر نصيحة مالية.
+        </p>
+    </div>
+</footer>
+
+</div><!-- .main -->
+
+<script>
+/* TIMER — 6h, localStorage, infinite loop */
+(function(){
+    var DUR=6*36e5,KEY='adelTimerEnd';
+    function getEnd(){
+        var e=localStorage.getItem(KEY);
+        if(!e||+e<=Date.now()){e=Date.now()+DUR;localStorage.setItem(KEY,e)}
+        return+e;
+    }
+    function pad(n){return n<10?'0'+n:n}
+    /* Arabic-Eastern digits */
+    function toAr(s){return s.replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[+d]})}
+    function tick(){
+        var end=getEnd(),d=end-Date.now();
+        if(d<=0){end=Date.now()+DUR;localStorage.setItem(KEY,end);d=DUR}
+        var h=Math.floor(d/36e5),m=Math.floor(d%36e5/6e4),s=Math.floor(d%6e4/1e3);
+        document.getElementById('t-h').textContent=toAr(pad(h));
+        document.getElementById('t-m').textContent=toAr(pad(m));
+        document.getElementById('t-s').textContent=toAr(pad(s));
+        var ft=document.getElementById('footer-timer');
+        if(ft)ft.textContent=toAr(pad(h)+':'+pad(m)+':'+pad(s));
+    }
+    tick();setInterval(tick,1e3);
+})();
+
+/* REVEAL */
+(function(){
+    var els=document.querySelectorAll('.reveal');
+    var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis')});
+    },{threshold:.12});
+    els.forEach(function(el){obs.observe(el)});
+})();
+
+/* DRAG SCROLL — gallery */
+(function(){
+    var el=document.getElementById('galleryScroll');if(!el)return;
+    var down=false,sx,sl;
+    el.addEventListener('mousedown',function(e){down=true;el.style.cursor='grabbing';sx=e.pageX-el.offsetLeft;sl=el.scrollLeft});
+    el.addEventListener('mouseleave',function(){down=false;el.style.cursor='grab'});
+    el.addEventListener('mouseup',function(){down=false;el.style.cursor='grab'});
+    el.addEventListener('mousemove',function(e){if(!down)return;e.preventDefault();el.scrollLeft=sl-(e.pageX-el.offsetLeft-sx)*1.5});
+})();
+</script>
+</body>
+</html>
+```__
